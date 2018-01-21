@@ -1,0 +1,31 @@
+<template>
+  <view>{{ groupId }}</view>
+  <list :listData.sync="list"></list>
+</template>
+
+<script>
+import wepy from 'wepy';
+import List from '../component/list'
+
+export default class ProjectPage extends wepy.page {
+  data = {
+    groupId: '',
+    list: [
+      {
+        title: '飞鸟',
+        link: './project_detail?id=1'
+      },
+      {
+        title: '卧推',
+        link: './project_detail?id=2'
+      },
+    ]
+  }
+  components = {
+    list: List
+  }
+  onLoad(option) {
+    this.groupId = option.groupId;
+  }
+}
+</script>

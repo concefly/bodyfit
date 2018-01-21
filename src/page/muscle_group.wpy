@@ -1,0 +1,30 @@
+<template>
+  <list :listData.sync="list"></list>
+</template>
+
+<script>
+import wepy from 'wepy';
+import access from 'get-value';
+import List from '../component/list';
+import trainLib from '../service/train_lib';
+
+export default class MuscleGroupPage extends wepy.page {
+  data = {
+    origin: {},
+  };
+  computed = {
+    list() {
+      return (access(this.origin, 'payload.list') || []).map(item => ({
+        link: `./project?groupId=${item.id}`,
+        ...item,
+      }));
+    },
+  };
+  components = {
+    list: List,
+  };
+  async onLoad() {
+    this.origin = await trainLib.getMuscleGroupList();
+  }
+}
+</script>

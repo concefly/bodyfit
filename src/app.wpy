@@ -44,6 +44,9 @@ export default class extends wepy.app {
 
     config = {
         'pages': [
+            'page/muscle_group',
+            'page/project',
+            'page/project_detail',
             'example/index',
             'example/button',
             'example/list',
