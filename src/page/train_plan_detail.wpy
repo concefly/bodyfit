@@ -1,0 +1,29 @@
+<template>
+  <list :listData.sync="list"></list>
+</template>
+
+<script>
+import wepy from 'wepy';
+import access from 'get-value';
+import List from '../component/list';
+import trainPlan from '../service/train_plan';
+
+export default class extends wepy.page {
+  data = {
+    origin: {},
+  };
+  computed = {
+    list() {
+      return (access(this.origin, 'payload.list') || []).map(item => ({
+        ...item,
+      }));
+    },
+  };
+  components = {
+    list: List,
+  };
+  async onLoad({ trainId }) {
+    this.origin = await trainPlan.getPlanDetail(trainId);
+  }
+}
+</script>
